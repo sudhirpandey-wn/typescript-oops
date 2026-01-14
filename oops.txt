@@ -1,0 +1,182 @@
+Overview of Object-Oriented Programming (OOP) Concepts
+Object-Oriented Programming (OOP) is a programming paradigm that organizes code around "objects," which are instances of "classes." It promotes modularity, reusability, and maintainability by modeling real-world entities. The core concepts of OOP are encapsulation, inheritance, polymorphism, and abstraction. Below, I'll explain each with a brief overview and a TypeScript example. TypeScript is a superset of JavaScript that adds static typing, making it ideal for demonstrating OOP principles.
+
+1. Classes and Objects
+Overview: A class is a blueprint for creating objects, defining properties (data) and methods (functions). An object is an instance of a class, holding specific values for those properties.
+
+TypeScript Example:
+
+typescript
+
+Copy code
+class Car {
+  brand: string;
+  model: string;
+  year: number;
+
+  constructor(brand: string, model: string, year: number) {
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
+  }
+
+  start(): void {
+    console.log(`${this.brand} ${this.model} is starting.`);
+  }
+}
+
+// Creating an object (instance)
+const myCar = new Car("Toyota", "Camry", 2020);
+myCar.start(); // Output: Toyota Camry is starting.
+Here, Car is the class, and myCar is an object with specific data.
+
+2. Encapsulation
+Overview: Encapsulation hides the internal state of an object and restricts access to it, exposing only necessary parts via public methods. This protects data integrity and reduces coupling.
+
+TypeScript Example:
+
+typescript
+
+Copy code
+class BankAccount {
+  private balance: number;
+
+  constructor(initialBalance: number) {
+    this.balance = initialBalance;
+  }
+
+  deposit(amount: number): void {
+    if (amount > 0) {
+      this.balance += amount;
+    }
+  }
+
+  getBalance(): number {
+    return this.balance;
+  }
+}
+
+const account = new BankAccount(100);
+account.deposit(50);
+console.log(account.getBalance()); // Output: 150
+// account.balance = 1000; // Error: 'balance' is private
+The balance is private, accessible only through methods like deposit and getBalance.
+
+3. Inheritance
+Overview: Inheritance allows a class (subclass) to inherit properties and methods from another class (superclass), promoting code reuse. Subclasses can override or extend inherited behavior.
+
+TypeScript Example:
+
+typescript
+
+Copy code
+class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  speak(): void {
+    console.log(`${this.name} makes a sound.`);
+  }
+}
+
+class Dog extends Animal {
+  breed: string;
+
+  constructor(name: string, breed: string) {
+    super(name); // Call parent constructor
+    this.breed = breed;
+  }
+
+  speak(): void {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+const dog = new Dog("Buddy", "Golden Retriever");
+dog.speak(); // Output: Buddy barks.
+Dog inherits from Animal and overrides the speak method.
+
+4. Polymorphism
+Overview: Polymorphism allows objects of different classes to be treated as objects of a common superclass, enabling methods to behave differently based on the object type (e.g., method overriding or overloading).
+
+TypeScript Example:
+
+typescript
+
+Copy code
+class Shape {
+  area(): number {
+    return 0;
+  }
+}
+
+class Circle extends Shape {
+  radius: number;
+
+  constructor(radius: number) {
+    super();
+    this.radius = radius;
+  }
+
+  area(): number {
+    return Math.PI * this.radius * this.radius;
+  }
+}
+
+class Rectangle extends Shape {
+  width: number;
+  height: number;
+
+  constructor(width: number, height: number) {
+    super();
+    this.width = width;
+    this.height = height;
+  }
+
+  area(): number {
+    return this.width * this.height;
+  }
+}
+
+function printArea(shape: Shape): void {
+  console.log(`Area: ${shape.area()}`);
+}
+
+const circle = new Circle(5);
+const rectangle = new Rectangle(4, 6);
+printArea(circle);    // Output: Area: 78.53981633974483
+printArea(rectangle); // Output: Area: 24
+Both Circle and Rectangle override area, and the function treats them polymorphically.
+
+5. Abstraction
+Overview: Abstraction focuses on exposing essential features while hiding implementation details. In TypeScript, this is achieved using abstract classes or interfaces, which define contracts without full implementations.
+
+TypeScript Example:
+
+typescript
+
+Copy code
+abstract class Vehicle {
+  abstract move(): void; // Abstract method
+
+  start(): void {
+    console.log("Vehicle is starting.");
+  }
+}
+
+class Bike extends Vehicle {
+  move(): void {
+    console.log("Bike is moving on two wheels.");
+  }
+}
+
+const bike = new Bike();
+bike.start(); // Output: Vehicle is starting.
+bike.move();  // Output: Bike is moving on two wheels.
+// const vehicle = new Vehicle(); // Error: Cannot instantiate abstract class
+Vehicle is abstract, forcing subclasses like Bike to implement move.
+
+These concepts form the foundation of OOP in TypeScript, enabling cleaner, more scalable code. For deeper dives, consider exploring TypeScript's documentation on classes and interfaces.
